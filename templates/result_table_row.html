@@ -1,0 +1,27 @@
+<tr>
+    <td>{{ number }}</td>
+    <td id="result_cell_{{ number }}" class="result_cell"></td>
+    <td id="status_cell_{{ number }}"></td>
+    <td><button id="update_btn_{{ number }}">Update</button></td>
+</tr>
+
+<script>
+    $( "#update_btn_{{ number }}" ).click(function() {
+        $.ajax({
+            type: 'POST',
+            url: "api/check_build/render_from_zip/{{ number }}",
+            success: function (data) {
+                $("#status_cell_{{ number }}").html(data);
+                if(data.localeCompare("SUCCESS") == 0){
+                    $.ajax({
+                        type: 'POST',
+                        url: "api/get_artifacts/render_from_zip/{{ number }}",
+                        success: function (data) {
+                            $("#result_cell_{{ number }}").html(data);
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,89 @@
+<!doctype html>
+<head>
+    <title>Remote render</title>
+    <link rel="stylesheet" href="../static/style/custom1.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+    <body>
+    <form enctype="multipart/form-data" id="form">
+        <div class="borderRounded filled padding margin box-shadow">
+            <p><h3><label for="source_file_input">Select a .zip archive with .blend scenes:</label></h3></p>
+            <p><input type="file" name="source_file" id="source_file_input"></p>
+
+            <p><h3><label for="resolution_block">Select the resolution of the resulting image:</label></h3></p>
+            <div id="resolution_block">
+                <span>Width</span>
+                <p><input type="text" name="width" value="1920"></p>
+                <span>Height</span>
+                <p><input type="text" name="height" value="1080"></p>
+            </div>
+        </div>
+        <div class="borderRounded filled padding margin box-shadow">
+            <p><h3><label for="samples_block">Select special render options:</label></h3></p>
+            <div id="samples_block">
+                <span>Minimum number of samples</span>
+                <p><input type="text" name="min_samples" value="32"></p>
+                <span>Maximum number of samples</span>
+                <p><input type="text" name="max_samples" value="64"></p>
+                <span>Noise threshold</span>
+                <p><input type="text" name="noise_threshold" value="0.05"></p>
+                <span>Time limit (0 means no time limit)</span>
+                <p><input type="text" name="time_limit" value="0"></p>
+            </div>
+        
+            <p><label for="file_format">Choose a file format of the resulting image:</label></p>
+            <p><select name="file_format">
+                <option value="PNG">.png</option>
+                <option value="JPEG">.jpeg</option>
+                <option value="BMP">.bmp</option>
+            </select></p>
+        </div>
+
+        <div class="borderRounded filled padding margin box-shadow">
+            <p><label for="labels">Select OS:</label></p>
+            <p><select name="labels">
+                <option value="windows">Windows</option>
+            </select></p>
+            
+            <p><input type="submit" value="Send"></p>
+        </div>
+    </form>
+    <div class="margin">
+        <table id="result_table" class="borderRounded filled box-shadow table">
+            <tr>
+                <td>Build id</td>
+                <td class="result_cell">Result</td>
+                <td>Status</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#form").on("submit", function(event){
+                event.preventDefault();
+                var form = $('#form')[0];
+                var data = new FormData(form);
+                //var formValues= $(this).serialize();
+        
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "api/remote_render",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    success: function (data) {
+                        $('#result_table tr:last').after(data);
+                    }
+                });
+                /*$.post("api/remote_render", formValues, function(data){
+                    // Display the returned data in browser
+                    $('#result_table tr:last').after(data);
+                });*/
+            });
+        });
+    </script>
+</body>

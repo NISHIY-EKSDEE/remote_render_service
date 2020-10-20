@@ -1,0 +1,68 @@
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+body{
+    background: url(../background.jpg) repeat;
+}
+
+code {
+    color: #E01A76;
+}
+
+td {
+    text-align: center;
+    vertical-align: top;
+    border-bottom: 1px solid #a070fa;
+}
+
+html { font-size: 14px; }
+
+table {
+    width: 100%;
+}
+
+.borderRounded {
+    border-radius: 10px;
+    border: 1px solid rgba(177, 177, 177, 0.82);
+}
+
+.margin {
+    margin-top: 24px;
+    margin-left: 128px;
+    margin-right: 128px;
+}
+
+.margin-left{
+    margin-left: 16px;
+}
+
+.margin-bottom{
+    margin-bottom: 16px;
+}
+
+.padding {
+    padding: 16px;
+}
+
+.padding-top{
+    padding-top: 16px;
+}
+
+.filled {
+    background-color: rgba(198, 198, 198, 0.89)
+}
+
+.text-area{
+    min-height: 100px;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(198, 109, 240, 0.84);
+    background-color: #c9bedd;
+}
+
+.result_cell {
+    width: 85%;
+}
